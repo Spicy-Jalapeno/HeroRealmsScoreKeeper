@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     height: '50%',
     width: '100%',
+    transform: [{ rotateZ: '180deg' }],
   },
   player2: {
     position: 'relative',
