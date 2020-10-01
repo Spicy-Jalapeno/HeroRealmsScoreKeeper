@@ -1,5 +1,6 @@
-import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet} from 'react-native';
+import {Button} from 'react-native-elements';
 
 // import {Card} from 'react-native-elements';
 import LifeCard from './src/components /LifeCard';
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     height: '50%',
     width: '100%',
-    transform: [{ rotateZ: '180deg' }],
+    transform: [{rotateZ: '180deg'}],
   },
   player2: {
     position: 'relative',
@@ -24,13 +25,67 @@ const styles = StyleSheet.create({
     width: '100%',
     // backgroundColor: 'black',
   },
+  lifeBut80: {
+    fontSize: 80,
+    backgroundColor: 'transparent',
+  },
+  lifeBut50: {
+    fontSize: 80,
+    backgroundColor: 'transparent',
+    alignSelf: 'center',
+  },
+  buttonRow: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
 
-const App: () => React$Node = () => {
+const App = () => {
+  const [clicked, setClicked] = React.useState(false);
+  const [health, setHealth] = React.useState(0);
+
+  const handle80Click = (e) => {
+    setHealth(80);
+    setClicked(true);
+  };
+  const handle50Click = (e) => {
+    setHealth(50);
+    setClicked(true);
+  };
   return (
     <View style={styles.root}>
-      <LifeCard position={styles.player1} color={'red'} />
-      <LifeCard position={styles.player2} color={'blue'} />
+      <LifeCard
+        position={styles.player1}
+        clicked={clicked}
+        setClicked={setClicked}
+        health={clicked ? health : null}
+        color={'red'}
+      />
+      <View style={styles.buttonRow}>
+        <Button
+          className="80"
+          title="80"
+          titleStyle={styles.lifeBut80}
+          buttonStyle={styles.lifeBut80}
+          onPress={handle80Click}
+        />
+        <Button
+          className="50"
+          title="50"
+          titleStyle={styles.lifeBut50}
+          buttonStyle={styles.lifeBut50}
+          onPress={handle50Click}
+        />
+      </View>
+      <LifeCard
+        position={styles.player2}
+        clicked={clicked}
+        setClicked={setClicked}
+        health={clicked ? health : null}
+        color={'blue'}
+      />
     </View>
   );
 };

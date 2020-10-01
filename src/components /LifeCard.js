@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Tile, Button} from 'react-native-elements';
 import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -36,25 +36,33 @@ const styles = StyleSheet.create({
   },
 });
 
-const LifeCard = (props) => {
+const LifeCard = ({clicked, setClicked, health, color, position}) => {
+  // console.log('beginLife >>>', beginLife);
   const [num, setNum] = React.useState(0);
+
+  useEffect(() => {
+    if (clicked) {
+      setNum(health);
+    }
+  });
 
   const handleInc = () => {
     setNum(num + 1);
+    setClicked(false);
   };
   const handleDec = () => {
     if (num === 0) {
       console.log('loser');
     } else {
       setNum(num - 1);
+      setClicked(false);
     }
   };
+
   return (
     <Tile
-      contentContainerStyle={
-        (styles.tileContent, {backgroundColor: props.color})
-      }
-      containerStyle={props.position}
+      contentContainerStyle={(styles.tileContent, {backgroundColor: color})}
+      containerStyle={position}
       // imageContainerStyle={styles.tile}
       // imageSrc={props.imgsrc}
       // featured
@@ -72,7 +80,6 @@ const LifeCard = (props) => {
           onPress={handleDec}
           icon={<Icon name="arrow-down" size={90} />}
         />
-
       </View>
     </Tile>
   );
