@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Button} from 'react-native-elements';
 
@@ -28,13 +28,15 @@ const styles = StyleSheet.create({
   lifeBut80: {
     fontSize: 80,
     backgroundColor: 'transparent',
+    color: 'green',
   },
   lifeBut50: {
     fontSize: 80,
     backgroundColor: 'transparent',
-    alignSelf: 'center',
+    color: 'green',
   },
   buttonRow: {
+    backgroundColor: 'yellow',
     width: '100%',
     display: 'flex',
     flexDirection: 'row',

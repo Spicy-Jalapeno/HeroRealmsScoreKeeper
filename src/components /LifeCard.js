@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-
+// TODO: make sure that something will show when the user loses. Whoever gets to zero first it should show.
 const LifeCard = ({clicked, setClicked, health, color, position}) => {
   // console.log('beginLife >>>', beginLife);
   const [num, setNum] = React.useState(0);
@@ -44,7 +44,7 @@ const LifeCard = ({clicked, setClicked, health, color, position}) => {
     if (clicked) {
       setNum(health);
     }
-  });
+  }, [clicked, health]);
 
   const handleInc = () => {
     setNum(num + 1);
