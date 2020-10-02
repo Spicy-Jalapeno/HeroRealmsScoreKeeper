@@ -1,7 +1,9 @@
 import React, {LogBox} from 'react';
 import {View, StyleSheet, Platform, Dimensions, Text} from 'react-native';
 import {Button} from 'react-native-elements';
-import Modal, {ModalContent} from 'react-native-modals';
+import Modal  from 'react-native-modals/src/Modal';
+import ModalContent from 'react-native-modals/src/components/ModalContent'
+import SlideAnimation from 'react-native-modals/src/animations/SlideAnimation';
 // import {Card} from 'react-native-elements';
 import LifeCard from './src/components /LifeCard';
 const styles = StyleSheet.create({
@@ -77,18 +79,21 @@ const App = () => {
     if (player === 'Player1') {
       return { transform: [{ rotateZ: '180deg' }] };
     } else {
-      return;
+      return { };
     }
   }
   return (
     <View style={styles.root}>
      <Modal style={getPlayer()}
-            visible={loss}
+        visible={loss}
+        modalAnimation={new SlideAnimation({
+      slideFrom: 'bottom',
+    })}
             onTouchOutside={() => {
               setLoss(false);
             }}>
-            <ModalContent>
-              <Text>FUCKING LOSER</Text>
+            <ModalContent style={{ height:500, width:500,justifyContent:'center',alignItems:'center'}}>
+              <Text style={{fontSize:100}}>FUCKING LOSER</Text>
             </ModalContent>
           </Modal>
         <LifeCard
