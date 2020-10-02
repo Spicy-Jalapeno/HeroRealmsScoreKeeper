@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import { Icon } from '@shoutem/ui/components/Icon';
-import { Button } from '@shoutem/ui/components/Button';
-import { Card } from '@shoutem/ui/components/Card';
-import { Text } from '@shoutem/ui/components/Text';
+import {Icon} from '@shoutem/ui/components/Icon';
+import {Button} from '@shoutem/ui/components/Button';
+import {Card} from '@shoutem/ui/components/Card';
+import {Text} from '@shoutem/ui/components/Text';
 import {StyleProvider, connectStyle} from '@shoutem/theme';
 import {View} from 'react-native';
 
@@ -57,7 +57,7 @@ const theme = {
     // style variant available to child components of any type
     justifyContent: 'center',
     alignContent: 'center',
-  
+
     // default card style, we usually place these rules at the bottom
 
     flex: 3,
@@ -74,30 +74,30 @@ const theme = {
   },
   'shoutem.ui.Text': {
     '.dark': {
-      color: 'white'
+      color: 'white',
     },
-    '.light':{
-      color: 'black'
+    '.light': {
+      color: 'black',
     },
-    
+
     fontSize: 100,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   'shoutem.ui.Icon': {
     '.up': {
-      color: 'green'
+      color: 'green',
     },
-    '.down':{
-      color:'red'
-    }
-  }
+    '.down': {
+      color: 'red',
+    },
+  },
 };
 // TODO: make sure that something will show when the user loses. Whoever gets to zero first it should show.
-const LifeCard = ({clicked, setClicked, health, color, position}) => {
+const LifeCard = ({clicked, setClicked, health, color, position, setLoss, player, setPlayer}) => {
   // console.log('beginLife >>>', beginLife);
-  connectStyle("shoutem.ui.Icon")(Icon);
+  // connectStyle("shoutem.ui.Icon")(Icon);
   const [num, setNum] = React.useState(0);
-  const [loss, setLoss] = React.useState(false);
+ 
 
   useEffect(() => {
     if (clicked) {
@@ -112,6 +112,8 @@ const LifeCard = ({clicked, setClicked, health, color, position}) => {
   const handleDec = () => {
     if (num === 0) {
       setLoss(true);
+      setPlayer(player)
+     
     } else {
       setNum(num - 1);
       setClicked(false);
@@ -127,15 +129,14 @@ const LifeCard = ({clicked, setClicked, health, color, position}) => {
             alignItems: 'center',
             flexDirection: 'row',
           }}>
+          
           <Button onPress={handleInc}>
             <Icon styleName={'up'} size={90} name="arrow-up"></Icon>
           </Button>
-          <Text styleName={color}>
-            {num}
-          </Text>
+          <Text styleName={color}>{num}</Text>
           <Button styleName="light" onPress={handleDec}>
             <Icon styleName={'down'} size={90} name="arrow-down"></Icon>
-          </Button> 
+          </Button>
           {/* <Button
             buttonStyle={styles.downBut}
             onPress={handleDec}

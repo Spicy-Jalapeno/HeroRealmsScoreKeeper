@@ -1,7 +1,7 @@
 import React, {LogBox} from 'react';
-import {View, StyleSheet, Platform, Dimensions} from 'react-native';
+import {View, StyleSheet, Platform, Dimensions, Text} from 'react-native';
 import {Button} from 'react-native-elements';
-
+import Modal, {ModalContent} from 'react-native-modals';
 // import {Card} from 'react-native-elements';
 import LifeCard from './src/components /LifeCard';
 const styles = StyleSheet.create({
@@ -63,7 +63,8 @@ const App = () => {
   console.ignoredYellowBox = [' Icon must be an SVG file imported as a React component.'];
   const [clicked, setClicked] = React.useState(false);
   const [health, setHealth] = React.useState(0);
-
+  const [loss, setLoss] = React.useState(false);
+  const [player, setPlayer] = React.useState('');
   const handle80Click = (e) => {
     setHealth(80);
     setClicked(true);
@@ -72,15 +73,33 @@ const App = () => {
     setHealth(50);
     setClicked(true);
   };
+  const getPlayer = () => {
+    if (player === 'Player1') {
+      return { transform: [{ rotateZ: '180deg' }] };
+    } else {
+      return;
+    }
+  }
   return (
     <View style={styles.root}>
-     
+     <Modal style={getPlayer()}
+            visible={loss}
+            onTouchOutside={() => {
+              setLoss(false);
+            }}>
+            <ModalContent>
+              <Text>FUCKING LOSER</Text>
+            </ModalContent>
+          </Modal>
         <LifeCard
           position={styles.player1}
           clicked={clicked}
           setClicked={setClicked}
           health={clicked ? health : null}
-          color={'dark'}
+          setPlayer= {setPlayer}
+          setLoss={setLoss}
+        color={'dark'}
+        player={'Player1'}
         />
      
       <View style={styles.buttonRow}>
@@ -104,7 +123,10 @@ const App = () => {
         clicked={clicked}
         setClicked={setClicked}
         health={clicked ? health : null}
+        setLoss={setLoss}
+        setPlayer= {setPlayer}
         color={'light'}
+        player={'Player2'}
       />
     </View>
   );
