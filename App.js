@@ -1,30 +1,43 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {LogBox} from 'react';
+import {View, StyleSheet, Platform, Dimensions} from 'react-native';
 import {Button} from 'react-native-elements';
 
 // import {Card} from 'react-native-elements';
 import LifeCard from './src/components /LifeCard';
 const styles = StyleSheet.create({
   root: {
-    display: 'flex',
+    // width: '100%',
+    // display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-start',
-    backgroundColor: 'black',
-    height: '100%',
+    alignItems: 'center',
+    // alignItems: 'flex-start',
+    backgroundColor: 'yellow',
+    // height: '100%',
+    flex: 1,
+    paddingTop: Platform.OS === 'ios' ? 40 : 0,
   },
   player1: {
-    position: 'relative',
-    height: '50%',
-    width: '100%',
+    // position: 'relative',
+    // height: '50%',
+    // width: '100%',
     transform: [{rotateZ: '180deg'}],
+    // backgroundColor: 'green',
+    // flex: 2,
+    // backfaceVisibility: 'hidden',
+    // borderBottomColor: 'green',
+    // borderRadius: 0,
+    // shadowOpacity: 0,
+    // elevation: 0,
   },
-  player2: {
-    position: 'relative',
-    height: '50%',
-    width: '100%',
-    // backgroundColor: 'black',
-  },
+  // player2: {
+  //   position: 'relative',
+  //   height: '50%',
+  //   width: '100%',
+  //   backgroundColor: 'red',
+  //   padding: 0,
+  //   flex: 2,
+  // },
   lifeBut80: {
     fontSize: 80,
     backgroundColor: 'transparent',
@@ -36,15 +49,18 @@ const styles = StyleSheet.create({
     color: 'green',
   },
   buttonRow: {
-    backgroundColor: 'yellow',
+    backgroundColor: 'blue',
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    height: '8%',
+    alignItems: 'center',
   },
 });
 
 const App = () => {
+  console.ignoredYellowBox = [' Icon must be an SVG file imported as a React component.'];
   const [clicked, setClicked] = React.useState(false);
   const [health, setHealth] = React.useState(0);
 
@@ -58,13 +74,15 @@ const App = () => {
   };
   return (
     <View style={styles.root}>
-      <LifeCard
-        position={styles.player1}
-        clicked={clicked}
-        setClicked={setClicked}
-        health={clicked ? health : null}
-        color={'red'}
-      />
+     
+        <LifeCard
+          position={styles.player1}
+          clicked={clicked}
+          setClicked={setClicked}
+          health={clicked ? health : null}
+          color={'dark'}
+        />
+     
       <View style={styles.buttonRow}>
         <Button
           className="80"
@@ -86,7 +104,7 @@ const App = () => {
         clicked={clicked}
         setClicked={setClicked}
         health={clicked ? health : null}
-        color={'blue'}
+        color={'light'}
       />
     </View>
   );
