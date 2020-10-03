@@ -77,28 +77,32 @@ const App = () => {
   };
   const getPlayer = () => {
     if (player === 'Player1') {
-      return { transform: [{ rotateZ: '180deg' }] };
+      return { transform: [{ rotateZ: '180deg' }]};
     } else {
       return { };
     }
   }
   return (
     <View style={styles.root}>
-     <Modal style={getPlayer()}
+      <Modal
+         useNativeDriver={true}
+        style={getPlayer()}
         visible={loss}
+       
         modalAnimation={new SlideAnimation({
-      slideFrom: 'bottom',
+          slideFrom: 'bottom',
+          
     })}
             onTouchOutside={() => {
               setLoss(false);
             }}>
-            <ModalContent style={{ height:500, width:500,justifyContent:'center',alignItems:'center'}}>
+        <ModalContent useNativeDriver={true} onPress={() => console.log('click')}style={{ height:300, width:500,justifyContent:'center',alignItems:'center'}}>
               <Text style={{fontSize:100}}>FUCKING LOSER</Text>
             </ModalContent>
           </Modal>
         <LifeCard
           position={styles.player1}
-          clicked={clicked}
+        clicked={clicked}
           setClicked={setClicked}
           health={clicked ? health : null}
           setPlayer= {setPlayer}

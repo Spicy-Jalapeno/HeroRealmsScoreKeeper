@@ -5,6 +5,7 @@ import {Card} from '@shoutem/ui/components/Card';
 import {Text} from '@shoutem/ui/components/Text';
 import {StyleProvider, connectStyle} from '@shoutem/theme';
 import {View} from 'react-native';
+import Slider from '@react-native-community/slider';
 
 import {Root, Popup} from 'popup-ui';
 
@@ -62,6 +63,7 @@ const theme = {
 
     flex: 3,
     width: '100%',
+    flexDirection: 'column',
     // card shadow style
     // shadowColor: 'black',
     // shadowRadius: 9,
@@ -92,12 +94,21 @@ const theme = {
     },
   },
 };
-// TODO: make sure that something will show when the user loses. Whoever gets to zero first it should show.
-const LifeCard = ({clicked, setClicked, health, color, position, setLoss, player, setPlayer}) => {
+// TODO: SLIDER WITH NUMBERS FOR INCREASING AND DECREASING LIFE THEN CLICK ARROW FOR THE AMOUNT THE SLIDER SHOWS.
+const LifeCard = ({
+  clicked,
+  setClicked,
+  health,
+  color,
+  position,
+  setLoss,
+  player,
+  setPlayer,
+}) => {
   // console.log('beginLife >>>', beginLife);
   // connectStyle("shoutem.ui.Icon")(Icon);
   const [num, setNum] = React.useState(0);
- 
+  const [slideNum, setSlide] = React.useState(0);
 
   useEffect(() => {
     if (clicked) {
@@ -106,19 +117,23 @@ const LifeCard = ({clicked, setClicked, health, color, position, setLoss, player
   }, [clicked, health]);
 
   const handleInc = () => {
-    setNum(num + 1);
+    setNum(num + slideNum);
     setClicked(false);
   };
   const handleDec = () => {
-    if (num === 0) {
+    console.log('Before set>>>',num);
+    setNum(num - slideNum);
+    console.log('After set>>>',num);
+    if (num - slideNum <= 0) {
+      setNum(0);
       setLoss(true);
-      setPlayer(player)
-     
+      setPlayer(player);
     } else {
-      setNum(num - 1);
       setClicked(false);
     }
   };
+  
+  
 
   return (
     <StyleProvider style={theme}>
@@ -129,11 +144,10 @@ const LifeCard = ({clicked, setClicked, health, color, position, setLoss, player
             alignItems: 'center',
             flexDirection: 'row',
           }}>
-          
           <Button onPress={handleInc}>
             <Icon styleName={'up'} size={90} name="arrow-up"></Icon>
           </Button>
-          <Text styleName={color}>{num}</Text>
+          <Text onChange={value => {console.log(value)}} styleName={color}>{num}</Text>
           <Button styleName="light" onPress={handleDec}>
             <Icon styleName={'down'} size={90} name="arrow-down"></Icon>
           </Button>
@@ -157,6 +171,24 @@ const LifeCard = ({clicked, setClicked, health, color, position, setLoss, player
           }>
           <Text>Open Popup</Text>
         </TouchableOpacity> */}
+        </View>
+        <View>
+          <Text>{slideNum}</Text>
+          <Slider
+            style={{
+              width: 200,
+              height: 40,
+              top: 60,
+              alignSelf: 'center',
+            }}
+            step={1}
+            minimumValue={0}
+            maximumValue={50}
+            minimumTrackTintColor="#FFFFFF"
+            maximumTrackTintColor="#000000"
+            onValueChange={(value) => setSlide(value)}
+            // onSlidingComplete={value => setSlide(value)}
+          />
         </View>
       </Card>
     </StyleProvider>
