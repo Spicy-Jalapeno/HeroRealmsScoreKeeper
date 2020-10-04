@@ -2,7 +2,8 @@ import React, {useEffect} from 'react';
 import {Icon} from '@shoutem/ui/components/Icon';
 import {Button} from '@shoutem/ui/components/Button';
 import {Card} from '@shoutem/ui/components/Card';
-import {Text} from '@shoutem/ui/components/Text';
+import { Text } from '@shoutem/ui/components/Text';
+
 import {StyleProvider, connectStyle} from '@shoutem/theme';
 import {View} from 'react-native';
 import Slider from '@react-native-community/slider';
@@ -77,13 +78,15 @@ const theme = {
   'shoutem.ui.Text': {
     '.dark': {
       color: 'white',
+      
     },
     '.light': {
       color: 'black',
+     
     },
-
+    
     fontSize: 100,
-    alignSelf: 'center',
+      alignSelf: 'center',
   },
   'shoutem.ui.Icon': {
     '.up': {
@@ -172,8 +175,8 @@ const LifeCard = ({
           <Text>Open Popup</Text>
         </TouchableOpacity> */}
         </View>
-        <View>
-          <Text>{slideNum}</Text>
+        <View style={{ flexDirection: 'column-reverse', height:100}}>
+         
           <Slider
             style={{
               width: 200,
@@ -184,11 +187,13 @@ const LifeCard = ({
             step={1}
             minimumValue={0}
             maximumValue={50}
-            minimumTrackTintColor="#FFFFFF"
-            maximumTrackTintColor="#000000"
+            thumbTintColor={'blue'}
+            minimumTrackTintColor={'#00FF00'}
+          maximumTrackTintColor={'red'}
             onValueChange={(value) => setSlide(value)}
             // onSlidingComplete={value => setSlide(value)}
           />
+          <Text styleName={color} style={{bottom:40,fontSize: 30, alignSelf:'center'}}>{slideNum}</Text>
         </View>
       </Card>
     </StyleProvider>
